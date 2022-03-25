@@ -2,6 +2,10 @@ import { ApolloServer, gql } from "apollo-server-express";
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import express from "express";
 import http from "http";
+import Prisma from '@prisma/client';
+const { PrismaClient } = Prisma;
+
+const prisma = new PrismaClient()
 
 const typeDefs = gql`
   type Query {
@@ -18,8 +22,9 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    hello() {
-      return "world";
+    async whoAmI() {
+      const allUsers = await prisma.user.findMany()
+      console.log(allUsers)
     },
   },
 };
@@ -49,6 +54,8 @@ async function main() {
     console.log("🚀 Server is ready at http://localhost:4000/graphql");
   } catch (err) {
     console.error("💀 Error starting the node server", err);
+  } finally {
+    await prisma.$disconnect()
   }
 }
 
