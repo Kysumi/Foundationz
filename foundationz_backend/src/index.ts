@@ -6,6 +6,13 @@ import http from "http";
 const typeDefs = gql`
   type Query {
     hello: String
+    whoAmI: User
+  }
+
+  type User {
+    id: String
+    name: String
+    email: String
   }
 `;
 
