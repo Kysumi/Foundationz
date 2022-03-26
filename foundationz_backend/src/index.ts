@@ -2,10 +2,22 @@ import { ApolloServer, gql } from "apollo-server-express";
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import express from "express";
 import http from "http";
-import Prisma from '@prisma/client';
-const { PrismaClient } = Prisma;
+import {User} from "./modules/user";
+import {Model} from "objection";
+import pkg, {Knex} from 'knex';
+import { v4 as uuidv4 } from 'uuid';
 
-const prisma = new PrismaClient()
+// Initialize knex.
+const k: Knex = pkg({
+  client: 'pg',
+  useNullAsDefault: true,
+  connection: {
+    filename: 'example.db'
+  }
+});
+
+// Give the knex instance to objection.
+Model.knex(k);
 
 const typeDefs = gql`
   type Query {
@@ -23,7 +35,12 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     async whoAmI() {
-      const allUsers = await prisma.user.findMany()
+      User.query().insert({
+        id: uuidv4(),
+        name: 'Bleh'
+      });
+
+      const allUsers = await User.query().first();
       console.log(allUsers)
     },
   },
@@ -54,8 +71,6 @@ async function main() {
     console.log("🚀 Server is ready at http://localhost:4000/graphql");
   } catch (err) {
     console.error("💀 Error starting the node server", err);
-  } finally {
-    await prisma.$disconnect()
   }
 }
 
