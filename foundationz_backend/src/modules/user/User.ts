@@ -7,14 +7,14 @@ class User extends Model {
 
     static get relationMappings() {
         return {
-            children: {
-                relation: Model.HasManyRelation,
-                modelClass: User,
-                join: {
-                    from: 'persons.id',
-                    to: 'persons.parentId'
-                }
-            }
+            // children: {
+            //     relation: Model.HasManyRelation,
+            //     modelClass: User,
+            //     join: {
+            //         from: 'persons.id',
+            //         to: 'persons.parentId'
+            //     }
+            // }
         };
     }
 

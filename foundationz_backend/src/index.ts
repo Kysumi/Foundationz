@@ -11,9 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 const k: Knex = pkg({
   client: 'pg',
   useNullAsDefault: true,
-  connection: {
-    filename: 'example.db'
-  }
+  connection: process.env.DATABASE_URL,
 });
 
 // Give the knex instance to objection.
@@ -35,7 +33,7 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     async whoAmI() {
-      User.query().insert({
+      await User.query().insert({
         id: uuidv4(),
         name: 'Bleh'
       });

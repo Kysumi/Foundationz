@@ -7,7 +7,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "nodemon --watch './**/*.{ts,graphql}' --exec \"node --experimental-specifier-resolution=node --loader ts-node/esm\" src/index.ts",
+    "watch": "nodemon --watch './**/*.{ts,graphql}' --exec \"node --require dotenv/config --experimental-specifier-resolution=node --loader ts-node/esm\" src/index.ts",
     "dev": "tsc-watch --onSuccess \"npm run watch\""
   },
   "keywords": [],
@@ -17,6 +17,7 @@
     "apollo-server": "^3.6.6",
     "apollo-server-core": "^3.6.6",
     "apollo-server-express": "^3.6.6",
+    "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "graphql": "^16.3.0",
     "knex": "^1.0.4",
