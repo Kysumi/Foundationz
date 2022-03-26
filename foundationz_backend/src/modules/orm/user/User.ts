@@ -1,5 +1,5 @@
 import {Model,ModelObject } from "objection";
-import Organization from "../orm/organization/Organization";
+import Organization from "../organization/Organization";
 
 class User extends Model {
     id: string;

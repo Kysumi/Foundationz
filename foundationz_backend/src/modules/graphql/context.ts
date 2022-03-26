@@ -1,6 +1,6 @@
 import { Request } from "express";
 import {getUser} from "../auth/getUser";
-import {User} from "../user";
+import {User} from "../orm/user";
 
 export interface Context {
     user?: User;

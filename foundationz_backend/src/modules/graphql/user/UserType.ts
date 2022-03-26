@@ -1,5 +1,5 @@
 import {extendType, objectType} from "nexus";
-import {User} from "../../user";
+import {User} from "../../orm/user";
 
 export const GetAllUsers = extendType({
     type: 'Query',
