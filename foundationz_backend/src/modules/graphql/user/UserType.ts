@@ -21,9 +21,7 @@ export const UserType = objectType({
         t.nonNull.string("email");
         t.nonNull.list.nonNull.field("organization", {
             type: "Organization",
-             async resolve({id, ...rest}, args, ctx, temo) {
-                console.log(rest, ctx, args, temo);
-
+             async resolve({id}) {
                 const user = await User.query().findById(id);
                 return user?.$relatedQuery('organizations') || [];
             }
