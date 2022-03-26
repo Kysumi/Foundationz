@@ -1,20 +1,29 @@
-import {Model} from "objection";
+import {Model,ModelObject } from "objection";
+import Organization from "../orm/organization/Organization";
 
 class User extends Model {
-    static get tableName() {
-        return 'users';
-    }
+    id: string;
+    name: string;
+    email: string;
+
+    organizations: Organization[]
+
+    static tableName = 'users'
 
     static get relationMappings() {
         return {
-            // children: {
-            //     relation: Model.HasManyRelation,
-            //     modelClass: User,
-            //     join: {
-            //         from: 'persons.id',
-            //         to: 'persons.parentId'
-            //     }
-            // }
+            organizations: {
+                relation: Model.ManyToManyRelation,
+                modelClass: Organization,
+                join: {
+                    from: 'users.id',
+                    through: {
+                        from: 'organization_user.user_id',
+                        to: 'organization_user.organization_id'
+                    },
+                    to: 'organizations.id'
+                }
+            }
         };
     }
 
@@ -24,9 +33,13 @@ class User extends Model {
             required: ['id'],
             properties: {
                 id: {type: 'string'},
+                email: {type: 'string'},
+                name: {type: 'string'}
             }
         }
     }
 }
+
+export type UserShape = ModelObject<User>;
 
 export default User;

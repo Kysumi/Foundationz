@@ -20,7 +20,7 @@ exports.up = function(knex) {
 
 exports.down = function(knex) {
     return knex.schema.dropTable("company_user")
-        .dropTable("company")
+        .dropTable("organization")
         .dropTable("users");
 };
 

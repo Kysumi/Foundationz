@@ -1,14 +1,13 @@
-import { ApolloServer, gql } from "apollo-server-express";
+import { ApolloServer } from "apollo-server-express";
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import express from "express";
 import http from "http";
-import {User} from "./modules/user";
 import {Model} from "objection";
-import pkg, {Knex} from 'knex';
-import { v4 as uuidv4 } from 'uuid';
+import knex, {Knex} from 'knex';
+import {schema} from "./schema";
 
 // Initialize knex.
-const k: Knex = pkg({
+const k: Knex = knex({
   client: 'pg',
   useNullAsDefault: true,
   connection: process.env.DATABASE_URL,
@@ -17,40 +16,12 @@ const k: Knex = pkg({
 // Give the knex instance to objection.
 Model.knex(k);
 
-const typeDefs = gql`
-  type Query {
-    hello: String
-    whoAmI: User
-  }
-
-  type User {
-    id: String
-    name: String
-    email: String
-  }
-`;
-
-const resolvers = {
-  Query: {
-    async whoAmI() {
-      await User.query().insert({
-        id: uuidv4(),
-        name: 'Bleh'
-      });
-
-      const allUsers = await User.query().first();
-      console.log(allUsers)
-    },
-  },
-};
-
 async function listen(port: number) {
   const app = express();
   const httpServer = http.createServer(app);
 
   const server = new ApolloServer({
-    typeDefs,
-    resolvers,
+    schema,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
 
