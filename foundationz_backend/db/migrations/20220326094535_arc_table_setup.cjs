@@ -5,18 +5,18 @@ exports.up = function (knex) {
             .notNullable();
         table.timestamps(false, true);
 
-        table.uuid("user_id");
+        table.uuid("product_id");
         table.uuid("location_id");
         table.uuid("employee_id");
     })
         .raw(`
             alter table "resources"
             add constraint "exactlyOneResourceType" check(
-                ("user_id" is not null and "location_id" is null and "employee_id" is null)
+                ("product_id" is not null and "location_id" is null and "employee_id" is null)
                 or
-                ("user_id" is null and "location_id" is not null and "employee_id" is null)
+                ("product_id" is null and "location_id" is not null and "employee_id" is null)
                 or
-                ("user_id" is null and "location_id" is null and "employee_id" is not null)
+                ("product_id" is null and "location_id" is null and "employee_id" is not null)
             )
         `)
         .createTable("projects", table => {
@@ -56,9 +56,21 @@ exports.up = function (knex) {
             table.timestamps(false, true);
             table.string("name");
         })
+        .createTable("products", table => {
+            table.uuid("id")
+                .primary()
+                .notNullable();
+
+            table.timestamps(false, true);
+            table.string("name");
+
+            table.uuid("organization_id");
+            table.foreign('organization_id')
+                .references('organizations.id');
+        })
         .alterTable("resources", (table) => {
-            table.foreign('user_id')
-                .references('users.id');
+            table.foreign('product_id')
+                .references('products.id');
             table.foreign('location_id')
                 .references('locations.id');
             table.foreign('employee_id')
