@@ -3,7 +3,7 @@
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
-module.exports = {
+export default {
   development: {
     client: 'postgresql',
     connection: {
@@ -13,7 +13,10 @@ module.exports = {
     },
     debug: true,
     migrations: {
-      directory: "./db/migrations"
+      directory: "./db/migrations",
+    },
+    seeds: {
+      directory: './db/seeds',
     }
   },
 };

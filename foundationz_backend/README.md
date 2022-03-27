@@ -6,16 +6,20 @@
 
 ## Creating a migration
 
-`npx knex --esm --knexfile knexfile.cjs migrate:make {migration_name_here_without_the_braces}`
+`npx knex --knexfile knexfile.mjs migrate:make {migration_name_here_without_the_braces}`
 
 ## Run all migrations
 
-`npx knex --esm --knexfile knexfile.cjs migrate:latest`
+`npx knex --knexfile knexfile.mjs migrate:latest`
 
 ## Creating a seeder
 
-`npx knex --esm --knexfile knexfile.cjs seed:make addUsers --env development`
+`npx knex --knexfile knexfile.mjs seed:make {seeder_name_here_without_the_braces} --env development`
 
 ## Adding alising paths in tsconfig
 
 `"paths": { "@orm/*" : ["src/modules/orm/*"] },`
+
+
+
+npx knex  --knexfile knexfile.mjs seed:run

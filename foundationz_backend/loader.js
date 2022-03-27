@@ -12,4 +12,4 @@ export function resolve(specifier, ctx, defaultResolve) {
     : resolveTs(specifier, ctx, defaultResolve);
 }
 
-export { load, transformSource } from "ts-node/esm";
+export { load, getFormat, transformSource } from 'ts-node/esm';
