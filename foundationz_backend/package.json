@@ -7,7 +7,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "nodemon --watch './**/*.{ts,graphql}' --exec \"node --require dotenv/config --experimental-specifier-resolution=node --loader ts-node/esm\" src/index.ts",
+    "watch": "nodemon --watch './**/*.{ts,graphql}' --exec \"node --require dotenv/config --experimental-specifier-resolution=node --loader ./loader.js \" src/index.ts",
     "dev": "tsc-watch --onSuccess \"npm run watch\""
   },
   "keywords": [],
@@ -34,6 +34,7 @@
     "nodemon": "^2.0.15",
     "ts-node": "^10.7.0",
     "tsc-watch": "^4.6.2",
+    "tsconfig-paths": "^3.14.1",
     "typescript": "^4.6.3"
   }
 }
