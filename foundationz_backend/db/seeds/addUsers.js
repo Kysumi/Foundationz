@@ -45,7 +45,6 @@ function makeNewOrganizationUserLink(orgId, userId) {
 }
 
 async function staticSeeded(knex) {
-
   await knex("organizations").insert([
     {
       id: "f1a119e2-ace4-11ec-b909-0242ac120002",
@@ -60,8 +59,7 @@ async function staticSeeded(knex) {
       first_name: `abomy`,
       surname: `foote`,
       email: "abomyy@gmail.com",
-      password: "8faa59ab5d84a843d5ff793d8b40a01d46c00efceefe292649fa90ab6b8ad8eddea5190ddaf8ac2ffb1368d4de9e3f449c40871512dd154398208793d18220a6",
-      salt: "d14dc35c6ea9dc87e08b2f96b7ce4be9",
+      password: "$2b$10$js6kXY9eJEe2TUBbAPdC1uhZsBqTrEm22Lm0mVqQYCPISIyhSbmwK",
       created_at: new Date(),
     },
   ]);

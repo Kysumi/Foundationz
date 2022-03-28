@@ -6,7 +6,6 @@ exports.up = function (knex) {
             table.string("surname");
             table.string("email");
             table.string("password");
-            table.string("salt");
             table.timestamps(false, true);
         })
         .createTable("organizations", table => {

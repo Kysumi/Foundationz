@@ -7,7 +7,6 @@ class User extends Model {
   surname: string;
   email: string;
   password: string;
-  salt:string;
   created_at: Date;
   organizations: Organization[];
 
@@ -39,7 +38,7 @@ class User extends Model {
         email: { type: "string" },
         first_name: { type: "string" },
         surname: { type: "string" },
-        salt: { type: "string" },
+        password: { type: "string" },
       },
     };
   }
