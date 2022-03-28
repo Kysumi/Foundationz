@@ -8,7 +8,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "old": "nodemon --watch './**/*.{ts,graphql}' --exec \"node --require dotenv/config --experimental-specifier-resolution=node --loader ./loader.js \" src/index.ts",
-    "dev": "tsc-watch --onSuccess \"npm run watch\"",
+    "olddev": "tsc-watch --onSuccess \"npm run watch\"",
+    "dev": "concurrently \"tsc-watch\"  \"npm run watch\"",
     "watch": "nodemon --watch './**/*.{ts,graphql}' --exec \"node  --require dotenv/config --experimental-specifier-resolution=node --loader ./loader.js ./src/index.ts\""
   },
   "keywords": [],

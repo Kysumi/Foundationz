@@ -1,4 +1,5 @@
 export * from "./user/UserType";
+export * from "./user/CreateUser";
 export * from "./organization/OrganizationType";
 export * from "./scalars";
 export * from "./resource/ResourceType";

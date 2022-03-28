@@ -17,7 +17,8 @@ export const UserType = objectType({
   name: "User",
   definition(t) {
     t.nonNull.string("id");
-    t.nonNull.string("name");
+    t.nonNull.string("first_name");
+    t.nonNull.string("surname");
     t.nonNull.string("email");
     t.nonNull.list.nonNull.field("organization", {
       type: "Organization",
