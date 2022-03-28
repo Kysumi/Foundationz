@@ -58,7 +58,8 @@ async function staticSeeded(knex) {
       id: "7efe2d3a-ace4-11ec-b909-0242ac120002",
       first_name: `abomy`,
       surname: `foote`,
-      email: "aboomy@gmail.com",
+      email: "abomyy@gmail.com",
+      password: "$2b$10$js6kXY9eJEe2TUBbAPdC1uhZsBqTrEm22Lm0mVqQYCPISIyhSbmwK",
       created_at: new Date(),
     },
   ]);

@@ -18,8 +18,8 @@ Model.knex(k);
 
 async function listen(port: number) {
   const app = express();
-  const httpServer = http.createServer(app);
 
+  const httpServer = http.createServer(app);
   const server = new ApolloServer({
     schema,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],

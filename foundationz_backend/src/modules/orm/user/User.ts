@@ -1,12 +1,13 @@
 import { Model, ModelObject } from "objection";
 import Organization from "@orm/organization/Organization";
-import Resource from "@orm/resource/Resource";
 
 class User extends Model {
   id: string;
-  name: string;
+  first_name: string;
+  surname: string;
   email: string;
-
+  password: string;
+  created_at: Date;
   organizations: Organization[];
 
   static tableName = "users";
@@ -35,7 +36,9 @@ class User extends Model {
       properties: {
         id: { type: "string" },
         email: { type: "string" },
-        name: { type: "string" },
+        first_name: { type: "string" },
+        surname: { type: "string" },
+        password: { type: "string" },
       },
     };
   }
