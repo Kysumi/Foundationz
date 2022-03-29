@@ -2,13 +2,14 @@ import { ApolloServer } from "apollo-server-express";
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import express from "express";
 import http from "http";
-import {Model} from "objection";
-import knex, {Knex} from 'knex';
-import {schema} from "./schema";
+import { Model } from "objection";
+import knex, { Knex } from "knex";
+import { schema } from "./schema";
+import { context } from "@graphql/context";
 
 // Initialize knex.
 const k: Knex = knex({
-  client: 'pg',
+  client: "pg",
   useNullAsDefault: true,
   connection: process.env.DATABASE_URL,
 });
@@ -22,6 +23,7 @@ async function listen(port: number) {
   const httpServer = http.createServer(app);
   const server = new ApolloServer({
     schema,
+    context,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
 
