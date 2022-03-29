@@ -1,7 +1,6 @@
 import { extendType, nonNull, objectType, stringArg } from "nexus";
 import { User } from "@orm/user";
 import { validatePassword } from "@auth/crypto";
-import { signToken } from "@auth/auth";
 import { AuthenticationError } from "apollo-server-express";
 
 export const UserLogin = extendType({
@@ -13,21 +12,23 @@ export const UserLogin = extendType({
         email: nonNull(stringArg()),
         password: nonNull(stringArg()),
       },
-      resolve: async (_, { email, password }) => {
+      resolve: async (_, { email, password }, { session }) => {
+        if (session.email) {
+          throw new AuthenticationError(`You are already signed in!`);
+        }
         const user = await User.query().where("email", email).first();
-
         if (!user) {
           throw new AuthenticationError(
             `User with the email ${email} not found!`
           );
         }
-
         if (validatePassword(user, password)) {
+          session.userid = user.id;
+          session.email = user.email;
           return [
             {
               id: user.id,
               email: user.email,
-              token: signToken(user),
             },
           ];
         }
@@ -42,6 +43,57 @@ export const UserAuthType = objectType({
   definition(t) {
     t.nonNull.string("id");
     t.nonNull.string("email");
-    t.nonNull.string("token");
+  },
+});
+
+export const StandardMessage = objectType({
+  name: "Message",
+  definition(t) {
+    t.nonNull.string("message");
+  },
+});
+
+export const UserLogout = extendType({
+  type: "Query",
+  definition(t) {
+    t.nonNull.list.field("logout", {
+      type: "Message",
+
+      resolve: async (_, {}, context) => {
+        if (!context.session.email) {
+          throw new AuthenticationError(`You are not signed in!`);
+        }
+
+        context.session.destroy(() => {
+          context.user = undefined;
+        });
+        return [
+          {
+            message: "Logged out",
+          },
+        ];
+      },
+    });
+  },
+});
+
+export const WhoAmI = extendType({
+  type: "Query",
+  definition(t) {
+    t.nonNull.list.field("whoAmI", {
+      type: "User",
+
+      resolve: async (_, {}, context) => {
+        if (!context.session.email) {
+          throw new AuthenticationError(`You are not signed in!`);
+        }
+        const user = await User.query().where("id", context.session.userid);
+        if (!user) {
+          throw new AuthenticationError(`You are not signed in!`);
+        }
+        console.log(context.user);
+        return user || [];
+      },
+    });
   },
 });

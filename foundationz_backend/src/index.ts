@@ -2,13 +2,16 @@ import { ApolloServer } from "apollo-server-express";
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import express from "express";
 import http from "http";
-import {Model} from "objection";
-import knex, {Knex} from 'knex';
-import {schema} from "./schema";
+import { Model } from "objection";
+import knex, { Knex } from "knex";
+import { schema } from "./schema";
+import cookieParser from "cookie-parser";
+import { configuredSession } from "@auth/auth";
+import { context } from "@graphql/context";
 
 // Initialize knex.
 const k: Knex = knex({
-  client: 'pg',
+  client: "pg",
   useNullAsDefault: true,
   connection: process.env.DATABASE_URL,
 });
@@ -17,17 +20,26 @@ const k: Knex = knex({
 Model.knex(k);
 
 async function listen(port: number) {
+  const corsOptions = {
+    origin: "https://studio.apollographql.com",
+    credentials: true,
+  };
   const app = express();
+  app.set("trust proxy", 1);
+  app.use(configuredSession());
+  app.use(cookieParser());
+  //app.use(express.json());
 
   const httpServer = http.createServer(app);
   const server = new ApolloServer({
     schema,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    context,
   });
 
   await server.start();
 
-  server.applyMiddleware({ app });
+  server.applyMiddleware({ app, cors: corsOptions });
 
   return new Promise((resolve, reject) => {
     httpServer.listen(port).once("listening", resolve).once("error", reject);
