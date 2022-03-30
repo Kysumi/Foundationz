@@ -44,7 +44,7 @@ export const UserLogout = extendType({
     t.nonNull.list.field("logout", {
       type: "Message",
 
-      resolve: async (_, {}, context) => {
+      resolve: async (_, __, context) => {
         if (!context.session.email) {
           throw new AuthenticationError(`You are not signed in!`);
         }

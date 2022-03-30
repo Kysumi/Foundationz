@@ -20,15 +20,9 @@ const k: Knex = knex({
 Model.knex(k);
 
 async function listen(port: number) {
-  const corsOptions = {
-    origin: "https://studio.apollographql.com",
-    credentials: true,
-  };
   const app = express();
-  app.set("trust proxy", 1);
   app.use(configuredSession());
   app.use(cookieParser());
-  //app.use(express.json());
 
   const httpServer = http.createServer(app);
   const server = new ApolloServer({
@@ -39,7 +33,7 @@ async function listen(port: number) {
 
   await server.start();
 
-  server.applyMiddleware({ app, cors: corsOptions });
+  server.applyMiddleware({ app });
 
   return new Promise((resolve, reject) => {
     httpServer.listen(port).once("listening", resolve).once("error", reject);
