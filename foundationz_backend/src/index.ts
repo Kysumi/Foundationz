@@ -27,6 +27,7 @@ async function listen(port: number) {
   const httpServer = http.createServer(app);
   const server = new ApolloServer({
     schema,
+    context,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     context,
   });

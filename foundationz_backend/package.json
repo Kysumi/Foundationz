@@ -20,6 +20,7 @@
     "apollo-server": "^3.6.6",
     "apollo-server-core": "^3.6.6",
     "apollo-server-express": "^3.6.6",
+    "dataloader": "^2.0.0",
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.0",
