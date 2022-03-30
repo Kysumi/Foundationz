@@ -5,13 +5,13 @@ export interface SessionData extends sessions.Session {
   email: string;
 }
 
-//24 hours
-const LIFETIME = 1000 * 60 * 60 * 24;
+//20 minutes
+const LIFETIME = 1000 * 60 * 20;
 
 export const configuredSession = () => {
   return sessions({
     name: "foundationz",
-    secret: process.env.SESSION_SECRET || "sdfhasergdfbvc",
+    secret: process.env.SESSION_SECRET || "superseceretness",
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
