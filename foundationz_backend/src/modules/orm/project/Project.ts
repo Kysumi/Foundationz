@@ -1,5 +1,4 @@
 import { Model } from "objection";
-import { User } from "../user";
 import Resource from "@orm/resource/Resource";
 
 class Project extends Model {

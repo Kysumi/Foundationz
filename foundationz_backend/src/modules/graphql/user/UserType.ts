@@ -20,11 +20,10 @@ export const UserType = objectType({
     t.nonNull.string("first_name");
     t.nonNull.string("surname");
     t.nonNull.string("email");
-    t.nonNull.list.nonNull.field("organization", {
+    t.nonNull.list.nonNull.field("organizations", {
       type: "Organization",
-      async resolve({ id }) {
-        const user = await User.query().findById(id);
-        return user?.$relatedQuery("organizations") || [];
+      async resolve({ id }, _, context) {
+        return await context.loaders.loadOrganizationFromUserId.load(id);
       },
     });
   },

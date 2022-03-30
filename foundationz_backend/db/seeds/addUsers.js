@@ -74,6 +74,8 @@ async function staticSeeded(knex) {
 
 export const seed = async (knex) => {
   // Deletes ALL existing entries
+  await knex("project_resource").del();
+  await knex("resources").del();
   await knex("organization_user").del();
   await knex("users").del();
   await knex("products").del();
@@ -89,10 +91,17 @@ export const seed = async (knex) => {
     return makeNewProduct(org.id);
   });
 
-  const linkUserToOrg = users.map((user) => {
-    const org = orgs[getRand(orgs.length)];
-    return makeNewOrganizationUserLink(org.id, user.id);
-  });
+  const linkUserToOrg = users.reduce((current, user) => {
+    const amomuntOfLinks = getRand(5);
+
+    return [
+      ...current,
+      ...Array.from(Array(amomuntOfLinks)).map(() => {
+        const org = orgs[getRand(orgs.length)];
+        return makeNewOrganizationUserLink(org.id, user.id);
+      }),
+    ];
+  }, []);
 
   await knex("organizations").insert(orgs);
   await knex("users").insert(users);
