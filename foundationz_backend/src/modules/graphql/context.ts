@@ -38,6 +38,7 @@ const loaders = {
 };
 
 export const context = async ({ req }: { req: CustomRequest }) => {
+  let user = undefined;
   if (req.session.userid) {
     user = await getUser(req.session.userid);
   }
