@@ -15,6 +15,18 @@ services:
       - db:/var/lib/postgresql/data
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     command: [ "postgres", "-c", "log_statement=all" ]
+
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel ${REDIS_lOG} --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis:/data
+
 volumes:
   db:
+    driver: local
+  redis:
     driver: local
