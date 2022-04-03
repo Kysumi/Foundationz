@@ -23,7 +23,7 @@ export const UserType = objectType({
     t.nonNull.list.nonNull.field("organizations", {
       type: "Organization",
       async resolve({ id }, _, context) {
-        return await context.loaders.loadOrganizationFromUserId.load(id);
+        return await context.loaders.user.organizations.load(id);
       },
     });
   },

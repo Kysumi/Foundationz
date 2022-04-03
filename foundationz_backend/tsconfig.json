@@ -36,6 +36,9 @@
       "@orm/*": [
         "src/modules/orm/*"
       ],
+      "@loaders/*": [
+        "src/modules/loaders/*"
+      ],
       "@redis/*": [
         "src/modules/redis/*"
       ],
