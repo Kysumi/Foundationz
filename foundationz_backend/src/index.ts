@@ -21,7 +21,7 @@ Model.knex(k);
 
 async function listen(port: number) {
   const app = express();
-  app.use(configuredSession());
+  app.use(await configuredSession());
   app.use(cookieParser());
 
   const httpServer = http.createServer(app);
