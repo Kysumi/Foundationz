@@ -5,8 +5,8 @@ import Resource from "@orm/resource/Resource";
 class Product extends Model {
   id: string;
   name: string;
-  created_at: Date;
-  update_at: Date;
+  createdAt: Date;
+  updateAt: Date;
 
   resource: Resource;
   organization: Organization;
@@ -19,7 +19,7 @@ class Product extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: Organization,
         join: {
-          from: "products.organization_id",
+          from: "products.organizationId",
           to: "organization.id",
         },
       },
@@ -28,7 +28,7 @@ class Product extends Model {
         modelClass: Resource,
         join: {
           from: "products.id",
-          to: "resource.product_id",
+          to: "resource.productId",
         },
       },
     };

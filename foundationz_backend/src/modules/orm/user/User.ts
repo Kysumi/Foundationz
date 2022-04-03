@@ -3,11 +3,13 @@ import Organization from "@orm/organization/Organization";
 
 class User extends Model {
   id: string;
-  first_name: string;
+  firstName: string;
   surname: string;
   email: string;
   password: string;
-  created_at: Date;
+  createdAt: Date;
+  updateAt: Date;
+
   organizations: Organization[];
 
   static tableName = "users";
@@ -20,8 +22,8 @@ class User extends Model {
         join: {
           from: "users.id",
           through: {
-            from: "organization_user.user_id",
-            to: "organization_user.organization_id",
+            from: "organizationUser.userId",
+            to: "organizationUser.organizationId",
           },
           to: "organizations.id",
         },
@@ -36,7 +38,7 @@ class User extends Model {
       properties: {
         id: { type: "string" },
         email: { type: "string" },
-        first_name: { type: "string" },
+        firstName: { type: "string" },
         surname: { type: "string" },
         password: { type: "string" },
       },

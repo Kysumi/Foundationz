@@ -18,8 +18,8 @@ class Organization extends Model {
         join: {
           from: "organizations.id",
           through: {
-            from: "organization_user.organization_id",
-            to: "organization_user.user_id",
+            from: "organization_user.organizationId",
+            to: "organization_user.userId",
           },
           to: "users.id",
         },
