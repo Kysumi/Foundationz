@@ -12,7 +12,7 @@ export const CreateUser = extendType({
         email: nonNull(stringArg()),
         password: nonNull(stringArg()),
       },
-      resolve: async (_, attribues) => createUserService(attribues),
+      resolve: async (_, attributes) => createUserService(attributes),
     });
   },
 });
