@@ -15,7 +15,7 @@ class Resource extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: Product,
         join: {
-          from: "resources.product_id",
+          from: "resources.productId",
           to: "products.id",
         },
       },
@@ -25,8 +25,8 @@ class Resource extends Model {
         join: {
           from: "resources.id",
           through: {
-            from: "project_resource.resource_id",
-            to: "project_resource.project_id",
+            from: "projectResource.resourceId",
+            to: "projectResource.projectId",
           },
           to: "projects.id",
         },

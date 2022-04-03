@@ -2,7 +2,7 @@ import { ApolloServer } from "apollo-server-express";
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import express from "express";
 import http from "http";
-import { Model } from "objection";
+import { knexSnakeCaseMappers, Model } from "objection";
 import knex, { Knex } from "knex";
 import { schema } from "./schema";
 import { context } from "@graphql/context";
@@ -12,6 +12,7 @@ const k: Knex = knex({
   client: "pg",
   useNullAsDefault: true,
   connection: process.env.DATABASE_URL,
+  ...knexSnakeCaseMappers(),
 });
 
 // Give the knex instance to objection.

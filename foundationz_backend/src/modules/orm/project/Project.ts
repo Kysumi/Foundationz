@@ -4,8 +4,8 @@ import Resource from "@orm/resource/Resource";
 class Project extends Model {
   id: string;
   name: string;
-  created_at: Date;
-  update_at: Date;
+  createdAt: Date;
+  updateAt: Date;
 
   resources: Resource[];
 
@@ -19,8 +19,8 @@ class Project extends Model {
         join: {
           from: "projects.id",
           through: {
-            from: "project_resource.project_id",
-            to: "project_resource.resource_id",
+            from: "projectResource.projectId",
+            to: "projectResource.resourceId",
           },
           to: "resources.id",
         },
