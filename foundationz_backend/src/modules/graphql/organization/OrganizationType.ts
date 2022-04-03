@@ -8,7 +8,7 @@ export const OrganizationType = objectType({
     t.nonNull.list.nonNull.field("users", {
       type: "User",
       async resolve({ id }, _, context) {
-        return await context.loaders.loadsUsersFromOrganisationId.load(id);
+        return await context.loaders.organization.users.load(id);
       },
     });
   },
