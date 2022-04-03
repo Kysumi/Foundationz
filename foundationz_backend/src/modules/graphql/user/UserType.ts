@@ -28,3 +28,11 @@ export const UserType = objectType({
     });
   },
 });
+
+export const UserAuthType = objectType({
+  name: "UserAuth",
+  definition(t) {
+    t.nonNull.string("id");
+    t.nonNull.string("email");
+  },
+});

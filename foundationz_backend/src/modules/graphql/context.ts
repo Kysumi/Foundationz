@@ -3,6 +3,17 @@ import { getUser } from "@auth/getUser";
 import { User } from "@orm/user";
 import DataLoader from "dataloader";
 import Organization from "@orm/organization/Organization";
+import { SessionData } from "@auth/auth";
+
+interface CustomRequest extends Request {
+  session: SessionData;
+}
+
+export interface Context {
+  user?: User;
+  session: SessionData;
+  loaders: typeof loaders;
+}
 
 const loaders = {
   loadOrganizationFromUserId: new DataLoader<string, Organization[]>(
@@ -26,17 +37,14 @@ const loaders = {
   ),
 };
 
-export interface Context {
-  user?: User;
-  loaders: typeof loaders;
-}
-
-export const context = async ({ req }: { req: Request }) => {
-  const token = req.headers.authorization ? req.headers.authorization : "";
-  const user = await getUser(token);
-
+export const context = async ({ req }: { req: CustomRequest }) => {
+  let user = undefined;
+  if (req.session.userid) {
+    user = await getUser(req.session.userid);
+  }
   return {
     user,
+    session: req.session,
     loaders,
   };
 };

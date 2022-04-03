@@ -5,6 +5,8 @@ import http from "http";
 import { knexSnakeCaseMappers, Model } from "objection";
 import knex, { Knex } from "knex";
 import { schema } from "./schema";
+import cookieParser from "cookie-parser";
+import { configuredSession } from "@auth/auth";
 import { context } from "@graphql/context";
 
 // Initialize knex.
@@ -20,6 +22,8 @@ Model.knex(k);
 
 async function listen(port: number) {
   const app = express();
+  app.use(await configuredSession());
+  app.use(cookieParser());
 
   const httpServer = http.createServer(app);
   const server = new ApolloServer({
