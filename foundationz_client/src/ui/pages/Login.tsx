@@ -11,6 +11,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { emailRegex } from "../../constants/strings/regex";
 import { useLoginMutation } from "../../generated/graphql";
+import { useNavigate } from "react-router";
 
 export const Login = () => {
   const {
@@ -24,6 +25,7 @@ export const Login = () => {
     },
   });
   const [query, { error, loading, reset }] = useLoginMutation();
+  const nav = useNavigate();
 
   const onSubmit = handleSubmit(async ({ email, password }) => {
     try {
@@ -33,6 +35,7 @@ export const Login = () => {
           password,
         },
       });
+      nav("/");
     } catch (e) {
       console.log("Welp GG");
     }
