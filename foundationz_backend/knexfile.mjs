@@ -11,7 +11,7 @@ export default {
             user: 'found',
             password: 'found'
         },
-        debug: true,
+        debug: false,
         migrations: {
             directory: "./db/migrations",
             extension: 'cjs',
@@ -19,8 +19,6 @@ export default {
         },
         seeds: {
             directory: './db/seeds',
-            extension: 'js',
-            loadExtensions: ['.js']
         }
     },
 };
