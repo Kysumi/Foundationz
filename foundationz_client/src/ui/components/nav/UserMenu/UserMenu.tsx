@@ -1,4 +1,4 @@
-import { useLogoutLazyQuery } from "../../../generated/graphql";
+import { useLogoutLazyQuery } from "../../../../generated/graphql";
 import { Avatar, Box, DropButton } from "grommet";
 import * as Icons from "grommet-icons";
 
