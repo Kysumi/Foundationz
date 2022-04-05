@@ -1,7 +1,8 @@
-query WhoAmI {
+query whoAmI {
   whoAmI {
     id
-    name
     email
+    firstName
+    surname
   }
 }

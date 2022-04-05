@@ -2,10 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { store } from "./app/store";
-import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Grommet } from "grommet";
+import { GlobalTheme } from "./ui/theme/GlobalTheme";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
@@ -14,11 +15,13 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </ApolloProvider>
+    <Router>
+      <ApolloProvider client={client}>
+        <Grommet theme={GlobalTheme}>
+          <App />
+        </Grommet>
+      </ApolloProvider>
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );
