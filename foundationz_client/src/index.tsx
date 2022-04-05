@@ -20,15 +20,23 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+export const typeDefs = gql`
+  extend type Query {
+    isLoggedIn: Boolean!
+  }
+`;
+
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <ApolloProvider client={client}>
         <Grommet theme={GlobalTheme}>
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="*" element={<App />} />
-          </Routes>
+          <div className="App">
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="*" element={<App />} />
+            </Routes>
+          </div>
         </Grommet>
       </ApolloProvider>
     </Router>

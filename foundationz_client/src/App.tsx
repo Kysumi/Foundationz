@@ -25,14 +25,14 @@ const App = () => {
   }
 
   return (
-    <div className="App">
+    <>
       <NavBar />
       <Routes>
         <Route path={"/"} element={<Contacts />} />
         <Route path={"*"} element={<Bookings />} />
         {data?.whoAmI.id}
       </Routes>
-    </div>
+    </>
   );
 };
 

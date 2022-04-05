@@ -4,7 +4,7 @@ import { validatePassword } from "@auth/crypto";
 import { AuthenticationError } from "apollo-server-express";
 
 export const UserLogin = extendType({
-  type: "Query",
+  type: "Mutation",
   definition(t) {
     t.nonNull.list.field("login", {
       type: "UserAuth",

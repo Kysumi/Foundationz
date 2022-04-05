@@ -10,4 +10,9 @@ export const GlobalTheme: ThemeType = {
       box-shadow: unset;
     `,
   },
+  button: {
+    border: {
+      radius: "12px",
+    },
+  },
 };
