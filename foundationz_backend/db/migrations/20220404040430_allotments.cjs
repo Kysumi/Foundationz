@@ -8,7 +8,7 @@ exports.up = function (knex) {
         table.string("type");
     }).createTable("allotment_rebook", table => {
         table.uuid("id").primary().notNullable();
-        table.uuid("allotment_id")
+        table.uuid("allotment_id").notNullable()
             .references('allotments.id');
         table.datetime("start_date");
         table.datetime("end_date");

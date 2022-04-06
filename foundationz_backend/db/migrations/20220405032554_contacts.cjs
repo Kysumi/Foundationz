@@ -5,7 +5,7 @@ exports.up = function (knex) {
         table.string("first_name");
         table.string("surname");
         table.timestamps(false, true);
-        table.uuid("organization_id").references("organizations.id");
+        table.uuid("organization_id").notNullable().references("organizations.id");
 
     }).alterTable("bookings", table => {
         table.dropColumn("name");
