@@ -32,9 +32,22 @@ export default class BaseSeeder {
     return this.data[this.randomNumberPlox(this.data.length)];
   }
 
-  randomNumberPlox(maxLimit = this.amount) {
-    console.log(maxLimit, this.amount);
+  randomList(amount) {
+    let list = [];
+    if (amount >= this.data.length) {
+      amount = this.data.length - 1;
+    }
+    while (list.length < amount) {
+      const randomRow = this.random();
+      if (list.includes(randomRow) === false) {
+        list.push(randomRow);
+      }
+    }
 
+    return list;
+  }
+
+  randomNumberPlox(maxLimit = this.amount) {
     const rand = Math.random() * maxLimit;
     return Math.floor(rand);
   }
