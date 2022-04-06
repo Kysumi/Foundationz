@@ -7,8 +7,8 @@ export default class ContactSeeder extends BaseSeeder {
   fields() {
     return {
       id: v4(),
-      first_name: `${faker.name.firstName()}`,
-      surname: `${faker.name.lastName()}`,
+      first_name: faker.name.firstName(),
+      surname: faker.name.lastName(),
       organization_id: Organizations.random().id,
     };
   }

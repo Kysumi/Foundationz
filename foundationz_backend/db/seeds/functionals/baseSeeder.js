@@ -4,7 +4,7 @@ export default class BaseSeeder {
 
   constructor(amount) {
     if (!amount) {
-      throw "Set an amount you POS";
+      throw "An amount is required for the seeders constructor";
     }
     this.amount = amount;
   }

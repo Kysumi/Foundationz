@@ -1,4 +1,4 @@
-export async function ClearDatabase(knex) {
+export async function clearDatabase(knex) {
   await knex("allotment_rebook").del();
   await knex("booking_resource").del();
   await knex("resources").del();

@@ -6,8 +6,8 @@ export default class UserSeeder extends BaseSeeder {
   fields() {
     return {
       id: v4(),
-      first_name: `${faker.name.firstName()}`,
-      surname: `${faker.name.lastName()}`,
+      first_name: faker.name.firstName(),
+      surname: faker.name.lastName(),
       email: faker.internet.email(),
     };
   }

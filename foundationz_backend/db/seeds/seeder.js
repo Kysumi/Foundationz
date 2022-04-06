@@ -1,5 +1,5 @@
 import { staticSeeders } from "./functionals/static.js";
-import { ClearDatabase } from "./functionals/clear.js";
+import { clearDatabase } from "./functionals/clear.js";
 import UserSeeder from "./functionals/user.js";
 import ProductSeeder from "./functionals/product.js";
 import OrganizationSeeder from "./functionals/organization/organizations.js";
@@ -51,7 +51,7 @@ export const AllotmentRebooks = new AllotmentRebookSeeder(
 
 export const seed = async (knex) => {
   // Deletes ALL existing entries
-  await ClearDatabase(knex);
+  await clearDatabase(knex);
 
   ///run the static seeders
   await staticSeeders(knex);
