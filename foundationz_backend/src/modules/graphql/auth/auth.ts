@@ -14,13 +14,9 @@ export const UserLogin = extendType({
         email: nonNull(stringArg()),
         password: nonNull(stringArg()),
       },
-      resolve: async (_, { email, password }, { session }) => {
-        if (session.userid) {
-          const user = await User.query().findById(session.userid);
-          if (user) {
-            return user;
-          }
-          throw error;
+      resolve: async (_, { email, password }, { session, user: ctxUser }) => {
+        if (ctxUser) {
+          return ctxUser;
         }
 
         const user = await User.query().where("email", email).first();
