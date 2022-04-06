@@ -91,7 +91,7 @@ export const Login = () => {
           toast
           status={"critical"}
           title={"Error"}
-          message="Incorrect email or password."
+          message={error.message}
           onClose={() => reset()}
         />
       )}

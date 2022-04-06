@@ -41,7 +41,7 @@ export const UserLogin = extendType({
 });
 
 export const UserLogout = extendType({
-  type: "Query",
+  type: "Mutation",
   definition(t) {
     t.nonNull.list.field("logout", {
       type: "Message",

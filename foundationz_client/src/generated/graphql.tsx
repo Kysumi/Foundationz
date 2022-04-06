@@ -25,7 +25,8 @@ export type Message = {
 export type Mutation = {
   __typename?: 'Mutation';
   createUser?: Maybe<User>;
-  login: Array<Maybe<UserAuth>>;
+  login: User;
+  logout: Array<Maybe<Message>>;
 };
 
 
@@ -66,7 +67,6 @@ export type Query = {
   __typename?: 'Query';
   getAllProjects: Array<Maybe<Project>>;
   getAllUsers: Array<Maybe<User>>;
-  logout: Array<Maybe<Message>>;
   whoAmI: User;
 };
 
@@ -98,12 +98,12 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: Array<{ __typename?: 'UserAuth', id: string, email: string } | null> };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'User', id: string, email: string } };
 
-export type LogoutQueryVariables = Exact<{ [key: string]: never; }>;
+export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LogoutQuery = { __typename?: 'Query', logout: Array<{ __typename?: 'Message', message: string } | null> };
+export type LogoutMutation = { __typename?: 'Mutation', logout: Array<{ __typename?: 'Message', message: string } | null> };
 
 export type WhoAmIQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -147,39 +147,37 @@ export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const LogoutDocument = gql`
-    query Logout {
+    mutation Logout {
   logout {
     message
   }
 }
     `;
+export type LogoutMutationFn = Apollo.MutationFunction<LogoutMutation, LogoutMutationVariables>;
 
 /**
- * __useLogoutQuery__
+ * __useLogoutMutation__
  *
- * To run a query within a React component, call `useLogoutQuery` and pass it any options that fit your needs.
- * When your component renders, `useLogoutQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
+ * To run a mutation, you first call `useLogoutMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLogoutMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const { data, loading, error } = useLogoutQuery({
+ * const [logoutMutation, { data, loading, error }] = useLogoutMutation({
  *   variables: {
  *   },
  * });
  */
-export function useLogoutQuery(baseOptions?: Apollo.QueryHookOptions<LogoutQuery, LogoutQueryVariables>) {
+export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<LogoutMutation, LogoutMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<LogoutQuery, LogoutQueryVariables>(LogoutDocument, options);
+        return Apollo.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument, options);
       }
-export function useLogoutLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LogoutQuery, LogoutQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<LogoutQuery, LogoutQueryVariables>(LogoutDocument, options);
-        }
-export type LogoutQueryHookResult = ReturnType<typeof useLogoutQuery>;
-export type LogoutLazyQueryHookResult = ReturnType<typeof useLogoutLazyQuery>;
-export type LogoutQueryResult = Apollo.QueryResult<LogoutQuery, LogoutQueryVariables>;
+export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
+export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
+export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
 export const WhoAmIDocument = gql`
     query whoAmI {
   whoAmI {
