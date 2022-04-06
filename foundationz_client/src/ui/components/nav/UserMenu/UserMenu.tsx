@@ -3,10 +3,12 @@ import * as Icons from "grommet-icons";
 import { useLogoutMutation } from "../../../../generated/graphql";
 import React from "react";
 import { useNavigate } from "react-router";
+import { useCurrentUser } from "../../../../gql/cache";
 
 export const UserMenu = () => {
   const [logout, { error, reset }] = useLogoutMutation({});
   const nav = useNavigate();
+  const user = useCurrentUser();
 
   const handleLogout = async () => {
     try {
@@ -26,7 +28,7 @@ export const UserMenu = () => {
         dropContent={
           <Box pad={"small"} background="light-2">
             <Box pad={"small"} direction="row">
-              Users Name:
+              Users Name: {`${user.firstName} ${user.surname}`}
             </Box>
             <Box pad={"small"} direction="row" onClick={handleLogout}>
               Logout

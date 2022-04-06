@@ -1,8 +1,16 @@
 query whoAmI {
-  whoAmI {
+    whoAmI {
+        ...LoggedInUser
+    }
+}
+
+fragment LoggedInUser on User{
     id
-    email
     firstName
     surname
-  }
+    email
+    organizations {
+        id
+        name
+    }
 }

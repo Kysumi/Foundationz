@@ -108,9 +108,22 @@ export type LogoutMutation = { __typename?: 'Mutation', logout: Array<{ __typena
 export type WhoAmIQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type WhoAmIQuery = { __typename?: 'Query', whoAmI: { __typename?: 'User', id: string, email: string, firstName: string, surname: string } };
+export type WhoAmIQuery = { __typename?: 'Query', whoAmI: { __typename?: 'User', id: string, firstName: string, surname: string, email: string, organizations: Array<{ __typename?: 'Organization', id: string, name: string }> } };
 
+export type LoggedInUserFragment = { __typename?: 'User', id: string, firstName: string, surname: string, email: string, organizations: Array<{ __typename?: 'Organization', id: string, name: string }> };
 
+export const LoggedInUserFragmentDoc = gql`
+    fragment LoggedInUser on User {
+  id
+  firstName
+  surname
+  email
+  organizations {
+    id
+    name
+  }
+}
+    `;
 export const LoginDocument = gql`
     mutation login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
@@ -181,13 +194,10 @@ export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, L
 export const WhoAmIDocument = gql`
     query whoAmI {
   whoAmI {
-    id
-    email
-    firstName
-    surname
+    ...LoggedInUser
   }
 }
-    `;
+    ${LoggedInUserFragmentDoc}`;
 
 /**
  * __useWhoAmIQuery__
