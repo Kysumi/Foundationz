@@ -2,23 +2,45 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { store } from "./app/store";
-import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import {
+  ApolloClient,
+  ApolloProvider,
+  gql,
+  InMemoryCache,
+} from "@apollo/client";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Grommet } from "grommet";
+import { GlobalTheme } from "./ui/theme/GlobalTheme";
+import { Route, Routes } from "react-router";
+import { Login } from "./ui/pages/Login";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
   cache: new InMemoryCache(),
+  credentials: "include",
 });
+
+export const typeDefs = gql`
+  extend type Query {
+    isLoggedIn: Boolean!
+  }
+`;
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </ApolloProvider>
+    <Router>
+      <ApolloProvider client={client}>
+        <Grommet theme={GlobalTheme}>
+          <div className="App">
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="*" element={<App />} />
+            </Routes>
+          </div>
+        </Grommet>
+      </ApolloProvider>
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );

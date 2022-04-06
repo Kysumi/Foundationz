@@ -8,6 +8,7 @@ import { schema } from "./schema";
 import cookieParser from "cookie-parser";
 import { configuredSession } from "@auth/auth";
 import { context } from "@graphql/context";
+import cors from "cors";
 
 // Initialize knex.
 const k: Knex = knex({
@@ -17,11 +18,24 @@ const k: Knex = knex({
   ...knexSnakeCaseMappers(),
 });
 
+const corsOptions = {
+  origin: [
+    "http://localhost:3000",
+    "http://localhost:4000",
+    "https://studio.apollographql.com",
+  ],
+  optionsSuccessStatus: 200,
+  credentials: true,
+};
+
 // Give the knex instance to objection.
 Model.knex(k);
 
 async function listen(port: number) {
   const app = express();
+  app.use(cors(corsOptions));
+
+  app.set("trust proxy", 1); // trust first proxy -- Apollo studio make it go
   app.use(await configuredSession());
   app.use(cookieParser());
 
@@ -34,7 +48,10 @@ async function listen(port: number) {
 
   await server.start();
 
-  server.applyMiddleware({ app });
+  server.applyMiddleware({
+    app,
+    cors: corsOptions,
+  });
 
   return new Promise((resolve, reject) => {
     httpServer.listen(port).once("listening", resolve).once("error", reject);
