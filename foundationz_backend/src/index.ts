@@ -34,6 +34,8 @@ Model.knex(k);
 async function listen(port: number) {
   const app = express();
   app.use(cors(corsOptions));
+
+  app.set("trust proxy", 1); // trust first proxy -- Apollo studio make it go
   app.use(await configuredSession());
   app.use(cookieParser());
 

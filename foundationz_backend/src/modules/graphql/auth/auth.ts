@@ -3,36 +3,38 @@ import { User } from "@orm/user";
 import { validatePassword } from "@auth/crypto";
 import { AuthenticationError } from "apollo-server-express";
 
+const error = new AuthenticationError(`Invalid email or password!`);
+
 export const UserLogin = extendType({
   type: "Mutation",
   definition(t) {
-    t.nonNull.list.field("login", {
-      type: "UserAuth",
+    t.nonNull.field("login", {
+      type: "User",
       args: {
         email: nonNull(stringArg()),
         password: nonNull(stringArg()),
       },
       resolve: async (_, { email, password }, { session }) => {
-        if (session.email) {
-          throw new AuthenticationError(`You are already signed in!`);
+        if (session.userid) {
+          const user = await User.query().findById(session.userid);
+          if (user) {
+            return user;
+          }
+          throw error;
         }
+
         const user = await User.query().where("email", email).first();
         if (!user) {
-          throw new AuthenticationError(
-            `User with the email ${email} not found!`
-          );
+          throw error;
         }
+
         if (validatePassword(user, password)) {
           session.userid = user.id;
           session.email = user.email;
-          return [
-            {
-              id: user.id,
-              email: user.email,
-            },
-          ];
+          return user;
         }
-        throw new AuthenticationError(`Invalid email or password!`);
+
+        throw error;
       },
     });
   },
