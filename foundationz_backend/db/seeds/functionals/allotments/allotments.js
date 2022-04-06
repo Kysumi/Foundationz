@@ -1,6 +1,6 @@
 import { v4 } from "uuid";
 import BaseSeeder from "../baseSeeder.js";
-import { Bookings } from "../../seeder.js";
+import { Bookings, BookingTypes } from "../../seeder.js";
 import { faker } from "@faker-js/faker";
 
 export default class AllotmentSeeder extends BaseSeeder {
@@ -17,7 +17,7 @@ export default class AllotmentSeeder extends BaseSeeder {
           id: v4(),
           booking_id: booking.id,
           organization_id: booking.organization_id,
-          type: faker.random.word(),
+          type_id: BookingTypes.random().id,
           start_date: start_date,
           end_date: end_date,
           created_at: new Date(),

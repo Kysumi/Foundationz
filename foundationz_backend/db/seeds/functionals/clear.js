@@ -10,6 +10,7 @@ export async function clearDatabase(knex) {
 
   ///NO CHANGE ORDER
   await knex("allotments").del();
+  await knex("booking_types").del();
   await knex("bookings").del();
   await knex("contacts").del();
   await knex("organizations").del();
