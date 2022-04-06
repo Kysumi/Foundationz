@@ -1,18 +1,15 @@
 import "./App.css";
-import { useWhoAmIQuery } from "./generated/graphql";
 import { useEffect } from "react";
 import { FullPageSpinner } from "./ui/components/spinner/FullPageSpinner";
 import { Route, Routes, useNavigate } from "react-router";
 import { Bookings } from "./ui/pages/Bookings";
 import { Contacts } from "./ui/pages/Contacts";
 import { NavBar } from "./ui/components/nav/NavBar";
+import { useCheckCurrentUser } from "./gql/cache";
 
 const App = () => {
   const nav = useNavigate();
-
-  const { data, loading, error } = useWhoAmIQuery({
-    fetchPolicy: "network-only",
-  });
+  const { data, loading, error } = useCheckCurrentUser();
 
   useEffect(() => {
     if (error) {
