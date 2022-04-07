@@ -9,6 +9,7 @@ import cookieParser from "cookie-parser";
 import { configuredSession } from "@auth/auth";
 import { context } from "@graphql/context";
 import cors from "cors";
+import { ApolloCookies } from "./modules/plugins/apolloCookies";
 
 // Initialize knex.
 const k: Knex = knex({
@@ -43,7 +44,10 @@ async function listen(port: number) {
   const server = new ApolloServer({
     schema,
     context,
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    plugins: [
+      ApolloServerPluginDrainHttpServer({ httpServer }),
+      new ApolloCookies(),
+    ],
   });
 
   await server.start();
