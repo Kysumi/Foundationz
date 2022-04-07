@@ -10,11 +10,12 @@ exports.up = function (knex) {
     }).alterTable("bookings", table => {
         table.dropColumn("name");
         table.uuid("contact_id").notNullable().references("contacts.id");
-        table.uuid("organization_id").references("organizations.id");
+        table.uuid("organization_id").notNullable().references("organizations.id");
+        table.uuid("location_resource").notNullable().references("locations.id");
 
     }).alterTable("allotments", table => {
         table.timestamps(false, true);
-        table.uuid("organization_id").references("organizations.id");
+        table.uuid("organization_id").notNullable().references("organizations.id");
     }).alterTable("booking_resource", table => {
         table.renameColumn("booking_id", "resource_id");
         table.renameColumn("project_id", "booking_id");

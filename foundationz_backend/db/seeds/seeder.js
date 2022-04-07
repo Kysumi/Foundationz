@@ -12,6 +12,7 @@ import BookingSeeder from "./functionals/bookings/bookings.js";
 import BookingResourceSeeder from "./functionals/bookings/bookingResources.js";
 import AllotmentSeeder from "./functionals/allotments/allotments.js";
 import AllotmentRebookSeeder from "./functionals/allotments/allotmentRebooks.js";
+import BookingTypeSeeder from "./functionals/bookingTypes.js";
 
 const PRODUCT_AMOUNT = 200;
 const ORGANIZATION_AMOUNT = 5;
@@ -21,6 +22,7 @@ const LOCATIONS_AMOUNT = 20;
 const EMPLOYEE_AMOUNT = 20;
 const RESOURCE_AMOUNT = 20;
 const BOOKING_AMOUNT = 10;
+const BOOKING_TYPES_AMOUNT = 15;
 const CONTACT_AMOUNT = 10;
 const ALLOTMENT_AMOUNT = 5;
 const ALLOTMENT_REBOOK_AMOUNT = 3;
@@ -40,6 +42,9 @@ export const Resources = new ResourceSeeder(RESOURCE_AMOUNT).generate();
 
 export const Contacts = new ContactSeeder(CONTACT_AMOUNT).generate();
 export const Bookings = new BookingSeeder(BOOKING_AMOUNT).generate();
+export const BookingTypes = new BookingTypeSeeder(
+  BOOKING_TYPES_AMOUNT
+).generate();
 export const BookingsResources = new BookingResourceSeeder(
   BOOKING_AMOUNT
 ).generate();
@@ -66,6 +71,7 @@ export const seed = async (knex) => {
   await knex("contacts").insert(Contacts.get());
   await knex("bookings").insert(Bookings.get());
   await knex("booking_resource").insert(BookingsResources.get());
+  await knex("booking_types").insert(BookingTypes.get());
   await knex("allotments").insert(Allotments.get());
   await knex("allotment_rebook").insert(AllotmentRebooks.get());
 

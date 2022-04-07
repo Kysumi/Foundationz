@@ -5,7 +5,6 @@ exports.up = function (knex) {
             .references('bookings.id');
         table.datetime("start_date");
         table.datetime("end_date");
-        table.string("type");
     }).createTable("allotment_rebook", table => {
         table.uuid("id").primary().notNullable();
         table.uuid("allotment_id").notNullable()
