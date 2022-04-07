@@ -1,12 +1,11 @@
 import { Model } from "objection";
 import Organization from "@orm/organization/Organization";
 import Resource from "@orm/resource/Resource";
+import { BaseModel } from "@orm/baseModel";
 
-class Product extends Model {
+class Product extends BaseModel {
   id: string;
   name: string;
-  createdAt: Date;
-  updateAt: Date;
 
   resource: Resource;
   organization: Organization;
