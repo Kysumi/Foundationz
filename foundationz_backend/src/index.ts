@@ -38,7 +38,6 @@ async function listen(port: number) {
 
   app.set("trust proxy", 1); // trust first proxy -- Apollo studio make it go
   app.use(await configuredSession());
-  // app.use(clearCookie);
   app.use(cookieParser());
 
   const httpServer = http.createServer(app);

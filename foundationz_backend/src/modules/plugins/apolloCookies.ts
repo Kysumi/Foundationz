@@ -14,10 +14,10 @@ export class ApolloCookies implements ApolloServerPlugin {
   async requestDidStart(): Promise<GraphQLRequestListener> {
     return {
       willSendResponse: async function (requestContext) {
-        const { setCookies = [] } = requestContext.context;
+        const { setCookies } = requestContext.context;
 
-        if (!Array.isArray(requestContext.context.setCookies)) {
-          console.warn("setCookies is missing from context");
+        if (!requestContext.context.setCookies) {
+          throw new Error("setCookies is missing from context");
         }
 
         if (setCookies.length > 1) {
