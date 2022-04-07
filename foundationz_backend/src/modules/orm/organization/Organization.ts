@@ -1,7 +1,8 @@
 import { Model } from "objection";
 import { User } from "@orm/user";
+import { BaseModel } from "@orm/baseModel";
 
-class Organization extends Model {
+class Organization extends BaseModel {
   id: string;
   name: string;
   email: string;

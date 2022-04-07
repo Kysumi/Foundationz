@@ -1,11 +1,10 @@
 import { Model } from "objection";
 import Resource from "@orm/resource/Resource";
+import { BaseModel } from "@orm/baseModel";
 
-class Project extends Model {
+class Project extends BaseModel {
   id: string;
   name: string;
-  createdAt: Date;
-  updateAt: Date;
 
   resources: Resource[];
 

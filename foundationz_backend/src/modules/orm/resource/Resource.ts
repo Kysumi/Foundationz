@@ -1,8 +1,9 @@
 import { Model } from "objection";
 import Project from "@orm/project/Project";
 import Product from "@orm/Product/Product";
+import { BaseModel } from "@orm/baseModel";
 
-class Resource extends Model {
+class Resource extends BaseModel {
   id: string;
   product: Product | null;
   projects: Project[];

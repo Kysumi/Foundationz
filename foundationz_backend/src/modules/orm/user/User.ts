@@ -1,14 +1,13 @@
 import { Model, ModelObject } from "objection";
 import Organization from "@orm/organization/Organization";
+import { BaseModel } from "@orm/baseModel";
 
-class User extends Model {
+class User extends BaseModel {
   id: string;
   firstName: string;
   surname: string;
   email: string;
   password: string;
-  createdAt: Date;
-  updateAt: Date;
 
   organizations: Organization[];
 
