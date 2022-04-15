@@ -8,6 +8,7 @@ exports.up = function (knex) {
         table.uuid("product_id");
         table.uuid("location_id");
         table.uuid("employee_id");
+        table.uuid("organization_id");
     })
         .raw(`
             alter table "resources"
@@ -55,6 +56,10 @@ exports.up = function (knex) {
 
             table.timestamps(false, true);
             table.string("name");
+
+            table.uuid("organization_id");
+            table.foreign('organization_id')
+                .references('organizations.id');
         })
         .createTable("products", table => {
             table.uuid("id")
@@ -75,6 +80,8 @@ exports.up = function (knex) {
                 .references('locations.id');
             table.foreign('employee_id')
                 .references('employees.id');
+            table.foreign('organization_id')
+                .references('organizations.id');
         });
 };
 

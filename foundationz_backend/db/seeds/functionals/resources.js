@@ -1,5 +1,5 @@
 import BaseSeeder from "./baseSeeder.js";
-import { Employees, Locations, Products } from "../seeder.js";
+import { Employees, Locations, Organizations, Products } from "../seeder.js";
 import { v4 } from "uuid";
 
 export default class ResourceSeeder extends BaseSeeder {
@@ -12,6 +12,7 @@ export default class ResourceSeeder extends BaseSeeder {
       return {
         ...this.fields(),
         product_id: Products.random().id,
+        organization_id: Organizations.random().id,
       };
     });
 
@@ -19,6 +20,7 @@ export default class ResourceSeeder extends BaseSeeder {
       return {
         ...this.fields(),
         location_id: Locations.random().id,
+        organization_id: Organizations.random().id,
       };
     });
 
@@ -26,6 +28,7 @@ export default class ResourceSeeder extends BaseSeeder {
       return {
         ...this.fields(),
         employee_id: Employees.random().id,
+        organization_id: Organizations.random().id,
       };
     });
 
