@@ -31,10 +31,6 @@ const Contact = () => {
   );
 };
 
-const UserMenuContainer = styled.div`
-  margin-left: auto;
-`;
-
 export const NavBar = () => {
   return (
     <Nav
@@ -46,9 +42,7 @@ export const NavBar = () => {
     >
       <Booking />
       <Contact />
-      <UserMenuContainer>
-        <UserMenu />
-      </UserMenuContainer>
+      <UserMenu />
     </Nav>
   );
 };

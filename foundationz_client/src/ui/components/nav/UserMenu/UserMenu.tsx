@@ -18,7 +18,7 @@ export const UserMenu = () => {
   };
 
   return (
-    <>
+    <Box margin={{ left: "auto" }}>
       <DropButton
         label={
           <Avatar background="accent-2">
@@ -46,6 +46,6 @@ export const UserMenu = () => {
           onClose={() => reset()}
         />
       )}
-    </>
+    </Box>
   );
 };
