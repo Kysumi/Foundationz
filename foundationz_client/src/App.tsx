@@ -25,7 +25,7 @@ const App = () => {
     <>
       <NavBar />
       <Routes>
-        <Route path={"/"} element={<Contacts />} />
+        <Route path={"/contacts"} element={<Contacts />} />
         <Route path={"*"} element={<Bookings />} />
         {data?.whoAmI.id}
       </Routes>

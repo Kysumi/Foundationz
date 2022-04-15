@@ -15,7 +15,7 @@ const User = styled(Icons.DocumentUser)`
 
 const Booking = () => {
   return (
-    <AnchorLink to={"/bookings"} alignSelf={"center"}>
+    <AnchorLink to={"/"} alignSelf={"center"}>
       Bookings
       <Calendar />
     </AnchorLink>
