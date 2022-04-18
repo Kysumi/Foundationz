@@ -16,6 +16,14 @@ export async function staticSeeders(knex) {
       password: "$2b$10$js6kXY9eJEe2TUBbAPdC1uhZsBqTrEm22Lm0mVqQYCPISIyhSbmwK",
       created_at: new Date(),
     },
+    {
+      id: "2e85aec5-1f92-49d2-aa53-0c1ddc279375",
+      first_name: `Scott`,
+      surname: `Maunder`,
+      email: "maunderscott@gmail.com",
+      password: "$2b$10$uyQbz63ZP1uda2rF2qeZIuGBiD6Jkjbd0Lz0AphIX4XVwDXWCcAe2",
+      created_at: new Date(),
+    },
   ]);
 
   await knex("organization_user").insert([
