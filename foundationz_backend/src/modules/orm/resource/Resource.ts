@@ -1,12 +1,14 @@
 import { Model } from "objection";
-import Project from "@orm/project/Project";
+import Booking from "@orm/booking/Booking";
 import Product from "@orm/Product/Product";
 import { BaseModel } from "@orm/baseModel";
+import Employee from "@orm/employee/Employee";
 
 class Resource extends BaseModel {
   id: string;
   product: Product | null;
-  projects: Project[];
+  employee: Employee | null;
+  bookings: Booking[];
 
   static tableName = "resources";
 
@@ -20,16 +22,24 @@ class Resource extends BaseModel {
           to: "products.id",
         },
       },
-      projects: {
+      employee: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Employee,
+        join: {
+          from: "resources.employeeId",
+          to: "employees.id",
+        },
+      },
+      bookings: {
         relation: Model.ManyToManyRelation,
-        modelClass: Project,
+        modelClass: Booking,
         join: {
           from: "resources.id",
           through: {
-            from: "projectResource.resourceId",
-            to: "projectResource.projectId",
+            from: "bookingResource.resourceId",
+            to: "bookingResource.bookingId",
           },
-          to: "projects.id",
+          to: "bookings.id",
         },
       },
     };

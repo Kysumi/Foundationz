@@ -2,13 +2,13 @@ import { Model } from "objection";
 import Resource from "@orm/resource/Resource";
 import { BaseModel } from "@orm/baseModel";
 
-class Project extends BaseModel {
+class Booking extends BaseModel {
   id: string;
   name: string;
 
   resources: Resource[];
 
-  static tableName = "projects";
+  static tableName = "bookings";
 
   static get relationMappings() {
     return {
@@ -16,10 +16,10 @@ class Project extends BaseModel {
         relation: Model.ManyToManyRelation,
         modelClass: Resource,
         join: {
-          from: "projects.id",
+          from: "bookings.id",
           through: {
-            from: "projectResource.projectId",
-            to: "projectResource.resourceId",
+            from: "bookingResource.bookingId",
+            to: "bookingResource.resourceId",
           },
           to: "resources.id",
         },
@@ -28,4 +28,4 @@ class Project extends BaseModel {
   }
 }
 
-export default Project;
+export default Booking;

@@ -11,6 +11,9 @@ const OrganizationLoaders = {
       )
     );
   }),
+  byId: new DataLoader<string, Organization>(async (organizationIds) => {
+    return Organization.query().findByIds(organizationIds.slice());
+  }),
 };
 
 export default { organization: OrganizationLoaders };

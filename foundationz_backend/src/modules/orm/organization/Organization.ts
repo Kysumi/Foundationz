@@ -1,6 +1,7 @@
 import { Model } from "objection";
 import { User } from "@orm/user";
 import { BaseModel } from "@orm/baseModel";
+import Resource from "@orm/resource/Resource";
 
 class Organization extends BaseModel {
   id: string;
@@ -8,6 +9,7 @@ class Organization extends BaseModel {
   email: string;
 
   users: User[];
+  resources: Resource[];
 
   static tableName = "organizations";
 
@@ -23,6 +25,14 @@ class Organization extends BaseModel {
             to: "organization_user.userId",
           },
           to: "users.id",
+        },
+      },
+      resources: {
+        relation: Model.HasManyRelation,
+        modelClass: Resource,
+        join: {
+          from: "organizations.id",
+          to: "resources.organization_id",
         },
       },
     };
