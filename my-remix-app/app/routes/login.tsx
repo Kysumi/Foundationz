@@ -27,7 +27,6 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
 export const action: ActionFunction = async ({ request }) => {
     const form = await request.formData();
-    const data = Object.fromEntries(form);
 
     const email = form.get('email');
     const password = form.get('password');
