@@ -120,6 +120,7 @@ export const Calendar = () => {
             </Box>
 
             <Box
+                overflow={'scroll'}
                 gridArea={'main'}
                 direction={'row'}
                 pad={'small'}
