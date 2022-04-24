@@ -1,16 +1,43 @@
-import { Links, Outlet, useLoaderData } from '@remix-run/react'
-import { Grommet } from 'grommet'
-import { GlobalTheme } from '~/GlobalTheme'
-import { LiveReload } from './component/LiveReload'
-import { NavBar } from '~/component/layout/navbar/navbar'
-import styles from '~/index.css'
-import { LoaderFunction } from '@remix-run/node'
+import { Links, Outlet, useLoaderData } from '@remix-run/react';
+import { Box, Card, Grommet, Heading, Text } from 'grommet';
+import { GlobalTheme } from '~/GlobalTheme';
+import { LiveReload } from './component/LiveReload';
+import styles from '~/index.css';
+import type { LoaderFunction } from '@remix-run/node';
+import { authenticated } from '~/auth/auth';
+import { NavBar } from '~/component/layout/navbar/NavBar';
 
 export const loader: LoaderFunction = async ({ params, request }) => {
-    console.log(request.headers.get('Cookie'))
-    return { user: null }
+    return authenticated(request, {
+        success: async (data) => {
+            return data;
+        },
+    });
+};
 
-    // let session = await getSession(request.headers.get('Cookie'))
+export function ErrorBoundary({ error }) {
+    console.error(error);
+    return (
+        <html>
+            <head>
+                <title>Oh no!</title>
+                <Links />
+                {typeof document === 'undefined' ? '__STYLES__' : null}
+            </head>
+            <body>
+                <Grommet theme={GlobalTheme}>
+                    <Box fill pad={'large'}>
+                        <Box width={'xlarge'} margin={'auto'}>
+                            <Card background="brand" pad={'xlarge'}>
+                                <Heading>Something went wrong</Heading>
+                                <Text>We are already working on fixing it</Text>
+                            </Card>
+                        </Box>
+                    </Box>
+                </Grommet>
+            </body>
+        </html>
+    );
 }
 
 export function links() {
@@ -23,12 +50,12 @@ export function links() {
             rel: 'stylesheet',
             href: 'https://fonts.googleapis.com/css2?family=Montserrat&display=optional',
         },
-    ]
+    ];
 }
 
 export default function App() {
-    const { user } = useLoaderData()
-
+    const data = useLoaderData();
+    const user = data?.user;
     return (
         <html lang="en">
             <head>
@@ -42,10 +69,9 @@ export default function App() {
                 <Grommet theme={GlobalTheme}>
                     <LiveReload />
                     {user && <NavBar />}
-
                     <Outlet />
                 </Grommet>
             </body>
         </html>
-    )
+    );
 }
