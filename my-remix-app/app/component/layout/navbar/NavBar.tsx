@@ -1,5 +1,4 @@
 import { Button, Nav, Sidebar } from 'grommet';
-import React from 'react';
 import * as Icons from 'grommet-icons';
 import type { NavItemProps } from '~/component/layout/navbar/NavItem';
 import { NavItem } from '~/component/layout/navbar/NavItem';
