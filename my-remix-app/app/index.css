@@ -1,5 +1,8 @@
-body {
+html,body {
     margin: 0;
+    max-height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
     font-family: -apple-system, 'Montserrat', BlinkMacSystemFont, 'Segoe UI',
         'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
         'Helvetica Neue', sans-serif;

@@ -6,7 +6,7 @@ import styles from '~/index.css';
 import type { LoaderFunction } from '@remix-run/node';
 import { authenticated } from '~/auth/auth';
 import { NavBar } from '~/component/layout/navbar/NavBar';
-import React from 'react';
+import React from 'react'
 
 export const loader: LoaderFunction = async ({ params, request }) => {
     return authenticated(request, {
@@ -70,17 +70,12 @@ export default function App() {
                 <Scripts />
                 <Grommet theme={GlobalTheme}>
                     <LiveReload />
-                    <Grid
-                        rows={['auto', 'flex']}
-                        columns={['auto', 'flex']}
-                        areas={[
-                            { name: 'sidebar', start: [0, 0], end: [0, 1] },
-                            { name: 'main', start: [1, 1], end: [1, 1] },
-                        ]}
-                    >
-                        {user && <NavBar />}
+                    <Box flex direction='row' height={'100vh'}>
+                        <Box width={'small'}>
+                            {user && <NavBar />}
+                        </Box>
                         <Outlet />
-                    </Grid>
+                    </Box>
                 </Grommet>
             </body>
         </html>

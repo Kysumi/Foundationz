@@ -24,7 +24,6 @@ const config: NavItemProps[] = [
 export const NavBar = () => {
     return (
         <Sidebar
-            height={'100vh'}
             background="brand"
             pad="small"
             focusIndicator={false}
