@@ -71,9 +71,11 @@ export default function App() {
                 <Grommet theme={GlobalTheme}>
                     <LiveReload />
                     <Box flex direction='row' height={'100vh'}>
-                        <Box width={'small'}>
-                            {user && <NavBar />}
-                        </Box>
+                        {user && (
+                            <Box width={'small'}>
+                                <NavBar />
+                            </Box>
+                        )}
                         <Outlet />
                     </Box>
                 </Grommet>

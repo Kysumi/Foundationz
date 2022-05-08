@@ -1,5 +1,5 @@
 import { AnchorLink } from '~/component/navigation/AnchorLink';
-import { Box } from 'grommet';
+import { Button } from 'grommet';
 import type { ReactElement } from 'react';
 import React from 'react';
 
@@ -12,10 +12,7 @@ export interface NavItemProps {
 export const NavItem: React.FC<NavItemProps> = ({ title, link, icon }) => {
     return (
         <AnchorLink to={link} alignSelf={'center'} style={{width: '100%'}}>
-            <Box direction={'row'} pad={'small'} background={'accent-1'}>
-                <Box pad={{ right: 'small' }} margin={'auto'}>{title}</Box>
-                {icon}
-            </Box>
+            <Button margin={'none'} size={'small'} icon={icon} label={title} style={{width: '100%'}} />
         </AnchorLink>
     );
 };
